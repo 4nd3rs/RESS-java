@@ -1,0 +1,35 @@
+<h1>Device detection</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Capability</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Is mobile?</td>
+        <td>${wurflCapabilities["ux_full_desktop"] ? 'Nope' : 'Yep'}</td>
+    </tr>
+    <tr>
+        <td>Device</td>
+        <td>${wurflCapabilities["brand_name"]} ${wurflCapabilities["model_name"]}
+            ${wurflCapabilities["marketing_name"] ? "( " + wurflCapabilities["marketing_name"] + "" : "" }
+    </tr>
+    <tr>
+        <td>Viewport width</td>
+        <td>${wurflCapabilities["max_image_width"]}</td>
+    </tr>
+    <tr>
+        <td>Resolution width</td>
+        <td>${wurflCapabilities["resolution_width"]}</td>
+    </tr>
+    <tr>
+        <td>Pointing method</td>
+        <td>${wurflCapabilities["pointing_method"]}</td>
+    </tr>
+
+
+    </tbody>
+</table>

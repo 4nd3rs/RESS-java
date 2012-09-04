@@ -1,0 +1,45 @@
+body {
+    background: transparent url(../img/bg_lightgrey.jpg) repeat;
+    /*Override bootsrap padding*/
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size:16px;
+}
+p{
+    font-size:1em;
+    line-height: 1.3em;
+}
+
+#footer {
+    clear: both;
+    background: black;
+    padding: 1em;
+    color: white;
+}
+
+@media screen and (max-width: 979px) {
+    .max-980 {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .max-768 {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 319px) {
+    .max-320 {
+        display: none !important;
+    }
+}
+
+img {
+    max-width: 100%;
+}
+
+#fbcomments, .fb_iframe_widget, .fb_iframe_widget[style], .fb_iframe_widget iframe[style], #fbcomments iframe[style] {
+    width: 100% !important;
+    overflow: hidden;
+}

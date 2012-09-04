@@ -1,0 +1,83 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>RESS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Getting started with RESS. A demo site for using Responsive Web design together with server side techniques.">
+    <meta name="author" content="Anders M. Andersen">
+
+    <!-- Styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/swipe.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+
+    <!-- Just neccecary scripts, rest goes in footer -->
+    <script src="js/modernizr-2.5.3-custom.js"></script>
+
+    <!-- Include touch and favicons -->
+    <%@include file="fragments/touchicons.jspf"%>
+
+    <!-- Check screensize and write to cookie (need to do this after the meta viewport tag)
+
+        We populate a PHP array called RESS.
+    -->
+    <%@include file="ress.jspf"%>
+    <%@include file="fragments/google-analytics.jspf"%>
+</head>
+
+<body>
+<div class="container">
+    <div id="header">
+
+        <div class="row">
+            <c:if test="${ressCapabilities.width >= 320 && ressCapabilities.width <= 640}">
+                <div class="mobile-ad max-320">
+                    <%@include file="fragments/ads/320.jspf"%>
+                </div>
+            </c:if>
+            <div id="site-logo">
+                <a href="/ress/">RESS</a>
+            </div>
+            <div class="ad">
+                <c:choose>
+                <c:when test="${ressCapabilities.width >= 980 }">
+                    <div class="max-980">
+                        <%@include file="fragments/ads/728.jspf"%>
+                    </div>
+                </c:when>
+                    <c:when test="${ressCapabilities.width >= 768 }">
+                        <div class="max-768">
+                            <%@include file="fragments/ads/468.jspf"%>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="#">Home</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li><a href="http://www.netmagazine.com/tutorials/getting-started-ress">Original Article</a></li>
+                        <li><a href="https://github.com/4nd3rs/RESS">Sourcecode</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
