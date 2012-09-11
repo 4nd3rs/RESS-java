@@ -15,5 +15,9 @@
         <td>ImageVersion</td>
         <td>${ressCapabilities.imageVersion}</td>
     </tr>
+    <tr>
+        <td>Connection</td>
+        <td>${ressCapabilities.connection}</td>
+    </tr>
     </tbody>
 </table>

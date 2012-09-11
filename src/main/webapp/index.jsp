@@ -14,8 +14,8 @@
 
         <div class="span4">
             <%@include file="fragments/archive.jspf"%>
-            <c:if test="${ressCapabilities.width >= 768}">
-                <div class="max-768">
+            <c:if test="${ressCapabilities.width >= 768 || ressCapabilities.connection == 'WiFi' || ressCapabilities.connection == 'Ethernet'}">
+                <div <%--class="max-768"--%>>
                     <h2>Social</h2>
                     <%@include file="fragments/twitter-search.jspf"%>
                     <%@include file="fragments/facebook.jspf"%>

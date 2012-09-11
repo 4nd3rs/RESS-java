@@ -49,14 +49,15 @@ public class CookieFilter implements Filter {
 
 
         int screenFeature = 0;
-        if(featureCapabilities.get("width") != null && featureCapabilities.get("width").matches("\\d.*")){
+        if (featureCapabilities.get("width") != null && featureCapabilities.get("width").matches("\\d.*")) {
             screenFeature = Integer.parseInt(featureCapabilities.get("width"));
         }
         int screenWurfl = Integer.parseInt(wurflCapabilities.get("max_image_width"));
 
         //calculate RESS capas, width and imageversion
-        ressCapabilities.put("width",String.valueOf(screenFeature > 0 ? screenFeature : screenWurfl));
-        ressCapabilities.put("imageVersion",String.valueOf(getImageVersion(Integer.parseInt(ressCapabilities.get("width")))));
+        ressCapabilities.put("width", String.valueOf(screenFeature > 0 ? screenFeature : screenWurfl));
+        ressCapabilities.put("imageVersion", String.valueOf(getImageVersion(Integer.parseInt(ressCapabilities.get("width")))));
+        ressCapabilities.put("connection",featureCapabilities.get("connection") != null ? featureCapabilities.get("connection")  : "Unknown");
 
         servletRequest.setAttribute("featureCapabilities", featureCapabilities);
         servletRequest.setAttribute("wurflCapabilities", wurflCapabilities);
@@ -70,14 +71,14 @@ public class CookieFilter implements Filter {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public int getImageVersion(int defaultWidth){
-        if(defaultWidth < 320){
+    public int getImageVersion(int defaultWidth) {
+        if (defaultWidth < 320) {
             return 320;
-        }else if (defaultWidth < 500){
+        } else if (defaultWidth < 500) {
             return 500;
-        }else if(defaultWidth <= 1024){
+        } else if (defaultWidth <= 1024) {
             return 640;
-        }else{
+        } else {
             return 770;
         }
     }
@@ -86,25 +87,31 @@ public class CookieFilter implements Filter {
 
         Map<String, String> capabilities = new HashMap<String, String>();
 
-        String ressCookie = readCookieValue(request,"RESS");
+        String ressCookie = readCookieValue(request, "RESS");
 
-        if(ressCookie == null){
+        if (ressCookie == null) {
             //add 0 as default width
-            capabilities.put("width","0");
-        }
+            capabilities.put("width", "0");
 
-        //cookie contains width.1440
-        if(ressCookie.contains(".")){
-            String[] value = ressCookie.split("\\.");
-            capabilities.put(value[0], value[1]);
+        } else if (ressCookie.contains("|")) {
+
+            String[] valuePair = ressCookie.split("\\|");
+
+            for(String value : valuePair){
+                //cookie contains width.1440
+                if (value.contains(".")) {
+                    String[] cookieValue = value.split("\\.");
+                    capabilities.put(cookieValue[0], cookieValue[1]);
+                }
+            }
         }
 
         return capabilities;
     }
 
 
-    private String readCookieValue(HttpServletRequest request, String cookieName){
-        if(request.getCookies() == null){
+    private String readCookieValue(HttpServletRequest request, String cookieName) {
+        if (request.getCookies() == null) {
             return null;
         }
         for (Cookie c : request.getCookies()) {
@@ -121,7 +128,8 @@ public class CookieFilter implements Filter {
         if (useragent == null) useragent = req.getHeader("user-agent");
         if (logger.isDebugEnabled()) logger.debug("user agent: " + useragent);
 
-        AbstractDevice device = manager.getDeviceFromRequest(req, resp, capabilities);
+        //AbstractDevice device = manager.getDeviceFromRequest(req, resp, capabilities);
+        AbstractDevice device = manager.getDeviceFromRequest(req, resp);
 
         Map<String, String> capabilities = copyMap(device.getCapabilities());
         if (capabilities.containsKey("max_image_width")

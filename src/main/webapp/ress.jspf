@@ -21,16 +21,29 @@
 
     //Store stuff in cookies
     RESS.storeSizes = function () {
+        var cookieValue = "";
+
         //Get screen width
         var width = window.innerWidth;
+        cookieValue += "width." + width;
+
+        var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if(connection){
+            var connectionTypes = "Unknown Ethernet WiFi 2G 3G 4G None".split(" ");
+            cookieValue += "|connection." + connectionTypes[connection.type];
+        }else{
+            cookieValue += "|connection." + "Unknown";
+        }
+
 
         // Set a cookie with the client side capabilities.
-        RESS.writeCookie("RESS", "width." + width);
+        RESS.writeCookie("RESS", cookieValue);
+
+        //update site with width value as well
         var widthElem = document.getElementById("width");
         if(widthElem){
             widthElem.innerHTML = window.innerWidth;
         }
-
 
     }
 

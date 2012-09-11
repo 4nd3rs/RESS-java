@@ -20,5 +20,9 @@
         <td>CSS animations</td>
         <td><span id="cssanim"></span></td>
     </tr>
+    <tr>
+        <td>Connection</td>
+        <td><span id="connection"></span></td>
+    </tr>
     </tbody>
 </table>
